@@ -6,13 +6,16 @@
         public $conn;
 
         public function Conectar(){
+            $servidor = "localhost";
+            $usuario = "teste_rafaelAltaf";
+            $senhaBd = "";
+            $nomeBd = "biblioteca";
             try{
                 if(!isset($this->conn)){
-                    $this->conn = new PDO(SERVIDOR, USUARIO, SENHA);
-                    echo("Conexao realizada com sucesso!");
+                    $this->conn = new mysqli($servidor, $usuario, $senhaBd, $nomeBd);
                 }
             }
-            catch(PDOException $err){
+            catch(mysqli_sql_exception $err){
                 echo("Erro: ".$err->getMessage());
             }
         }

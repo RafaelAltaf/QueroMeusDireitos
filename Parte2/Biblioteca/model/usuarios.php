@@ -6,6 +6,7 @@
         private $email;
         private $senha;
 
+        //Get & Set
         public function GetId(){
             return $this->id;
         }
@@ -38,39 +39,91 @@
             $this->senha = $senha;
         }
 
+        //Funcionalidades
         public function Cadastrar(){
-            $bd = new FabricaConexao();
-            if($this->_checarEmail($bd)){
-                $bd->Conectar();
-                $sql = $bd->conn->prepare( 'INSERT INTO Usuarios(nome, email, senha) VALUES("?","?","?")');
-                try{
-                    $sql->execute(["$this->nome", "$this->email", "$this->senha"]);
-                    $bd->conn = NULL;
-                    echo "Deu bão";
-                    return true;
+            if(!empty($this->email) && !empty($this->nome) && !empty($this->senha)){      
+                $bd = new FabricaConexao();          
+                if(!$this->_checarEmail($bd)){
+                    $bd->Conectar();
+                    $sql = "INSERT INTO Usuarios(nome, email, senha) VALUES(?,?,?)";
+                    $result = $bd->conn->prepare($sql);
+            
+                    try{
+                        $result->bind_param("sss",$this->nome,$this->email, $this->senha);
+                        if($result->execute()){
+                            $bd->conn->close();
+                            echo "Deu bão";
+                            return true;
+                        }
+                        else{
+                            echo "Deu ruim";
+                            return false;
+                        }
+                    }
+                    catch(mysqli_sql_exception $err){
+                        echo("Deu ruim ".$err->getMessage());
+                        return false;
+                    }
                 }
-                catch(PDOException $err){
-                    echo("Deu ruim ".$err->getMessage());
+                else{
+                    echo "Email já cadastrado!";
                     return false;
-                }
+                } 
             }
             else{
-                echo "Email já cadastrado!";
+                return false;
             }
-            
         }
 
         public function _checarEmail($bd){
             $bd->Conectar();
-            $sql = $bd->conn->prepare('CALL Checar_Email("?")');
+            $sql = "SELECT email FROM usuarios WHERE email = ?;";    
             try{
-                if($sql->execute($this->email))
-                $bd->conn = NULL;
-                return true;
+                $result = $bd->conn->prepare($sql);
+                $result->bind_param("s",$this->email);
+                if($result->execute()){
+                    $result->store_result();
+                    if($result->num_rows > 0){
+                        $bd->conn->close();
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                }
+                else{
+                    return false;
+                }
             }
-            catch(PDOException $err){
+            catch(mysqli_sql_exception $err){
                 echo("Deu ruim ".$err->getMessage());
-                $bd->conn = NULL;
+                $bd->conn->close();
+                return false;
+            }
+        }
+
+        public function Logar(){
+            $bd = new FabricaConexao();
+            $bd->Conectar();
+            $sql = "SELECT email, senha FROM usuarios WHERE email = ? AND senha = ?;";
+            try{
+                $result = $bd->conn->prepare($sql);
+                $result->bind_param("ss",$this->email, $this->senha);
+                $result->execute();
+                if($result->execute()){
+                    $result->store_result();
+                    if($result->num_rows > 0){
+                        $bd->conn->close();
+                        return true;
+                    }
+                }
+                else{
+                    return false;
+                }
+            }
+            catch(mysqli_sql_exception $err){
+                echo("Deu ruim ".$err->getMessage());
+                $bd->conn->close();
                 return false;
             }
         }

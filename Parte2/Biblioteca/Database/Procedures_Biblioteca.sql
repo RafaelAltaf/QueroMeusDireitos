@@ -1,13 +1,6 @@
 use Biblioteca;
 
 Delimiter $$
-create procedure Checar_Email(in email_param varchar(100))
-BEGIN
-	SELECT email FROM usuarios WHERE email = email_param;
-END $$ 
-Delimiter ;
-
-Delimiter $$
 create procedure Livros_Lidos(in usuario_id int)
 BEGIN
 	SELECT * FROM livros 

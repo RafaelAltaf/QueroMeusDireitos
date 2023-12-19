@@ -105,5 +105,65 @@ class Livros{
             return false;
         }
     }
+
+    public function DeletarLivro(){
+        $bd = new FabricaConexao(); 
+        $bd->Conectar();
+        $sql = "";    
+        try{
+            $result = $bd->conn->prepare($sql);
+            $result->bind_param("ss",$this->titulo, $this->autor);
+
+            if($result->execute()){
+                $result->store_result();
+                if($result->num_rows > 0){
+                    $bd->conn->close();
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        catch(mysqli_sql_exception $err){
+            echo("Deu ruim ".$err->getMessage());
+            $bd->conn->close();
+            return false;
+        }
+    }
+
+    public function ListarLivros(){
+      $bd = new FabricaConexao();
+      $bd->Conectar();
+
+      $sql = 'SELECT * FROM livros';
+      $result = $bd->conn->prepare($sql);
+      $result->execute();
+      $result->store_result();
+      if ($result->num_rows > 0)
+      {
+        $result->bind_result($id,$titulo,$autor,$data);
+        $num = 1;
+        while ($result->fetch()) {
+            echo "<tr>";
+            echo "<td>" . $num."</td>"; 
+            echo "<td>" . $titulo."</td>";
+            echo "<td>" . $autor."</td>";
+            echo "<td>" . $data."</td>";
+            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Quero ler</a>";
+            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Estou lendo</a>";
+            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Já lí</a>";
+            echo "<td> <a class='btn btn-sm btn-danger' href='../controller/acaoLivro.php?acao=deletar&id=".$id."'>Deletar</a>";
+            echo "</tr>";
+            $num++;
+        }
+        }
+        else{
+            echo("Não há nenhum livro cadastrado");
+        }
+    }   
 }
 ?>

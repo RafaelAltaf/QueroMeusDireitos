@@ -52,7 +52,7 @@
                         $result->bind_param("sss",$this->nome,$this->email, $this->senha);
                         if($result->execute()){
                             $bd->conn->close();
-                            echo "Deu bão";
+                            $this->Logar(); //Após o cadastro, é iniciada uma sessão do usuário, que, então, pode utilizar o sistema logo após o cadastro.
                             return true;
                         }
                         else{
@@ -105,15 +105,20 @@
         public function Logar(){
             $bd = new FabricaConexao();
             $bd->Conectar();
-            $sql = "SELECT email, senha FROM usuarios WHERE email = ? AND senha = ?;";
+            $sql = "SELECT id_usuario FROM usuarios WHERE email = ? AND senha = ?;";
             try{
                 $result = $bd->conn->prepare($sql);
                 $result->bind_param("ss",$this->email, $this->senha);
-                $result->execute();
+
                 if($result->execute()){
                     $result->store_result();
                     if($result->num_rows > 0){
+                        $result->bind_result($id);
+                        $result->fetch();
+                        session_start();
+                        $_SESSION['id_usuario'] = $id;
                         $bd->conn->close();
+                        
                         return true;
                     }
                 }

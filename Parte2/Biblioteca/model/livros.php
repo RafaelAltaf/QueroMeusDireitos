@@ -135,35 +135,58 @@ class Livros{
         }
     }
 
-    public function ListarLivros(){
-      $bd = new FabricaConexao();
-      $bd->Conectar();
-
-      $sql = 'SELECT * FROM livros';
-      $result = $bd->conn->prepare($sql);
-      $result->execute();
-      $result->store_result();
-      if ($result->num_rows > 0)
-      {
-        $result->bind_result($id,$titulo,$autor,$data);
-        $num = 1;
-        while ($result->fetch()) {
-            echo "<tr>";
-            echo "<td>" . $num."</td>"; 
-            echo "<td>" . $titulo."</td>";
-            echo "<td>" . $autor."</td>";
-            echo "<td>" . $data."</td>";
-            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Quero ler</a>";
-            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Estou lendo</a>";
-            echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id=".$id."'>Já lí</a>";
-            echo "<td> <a class='btn btn-sm btn-danger' href='../controller/acaoLivro.php?acao=deletar&id=".$id."'>Deletar</a>";
-            echo "</tr>";
-            $num++;
-        }
+    public function ListarLivros($lista=false, $id_usuario=false){
+        if($lista){
+            $sql = "SELECT * FROM livros INNER JOIN $lista WHERE id_usuario = $id_usuario";
+            $msg = "Você ainda não adicionou nenhum livro nesta lista!";
         }
         else{
-            echo("Não há nenhum livro cadastrado");
+            $sql = "SELECT * FROM livros";
+            $msg = "Não há nenhum livro cadastrado!";
         }
-    }   
+        $bd = new FabricaConexao();
+        $bd->Conectar();
+
+        
+        $result = $bd->conn->prepare($sql);
+        $result->execute();
+        $result->store_result();
+
+        if ($result->num_rows > 0)
+        {            
+            $result->bind_result($id,$titulo,$autor,$data);
+            $num = 1;
+
+            echo
+            '<table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">Número</th>
+                <th scope="col">Título</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Data de Publicação</th>
+                </tr>
+            </thead>
+            <tbody class = "table-group-divider">';
+
+            while ($result->fetch()) {
+                echo "<tr>";
+                echo "<td>" . $num."</td>"; 
+                echo "<td>" . $titulo."</td>";
+                echo "<td>" . $autor."</td>";
+                echo "<td>" . $data."</td>";
+                echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id_livro=".$id."'>Quero ler</a>";
+                echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id_livro=".$id."'>Estou lendo</a>";
+                echo "<td> <a class='btn btn-sm btn-primary' href='../controller/acaoLivro.php?acao=QuerLer&id_livro=".$id."'>Já lí</a>";
+                echo "<td> <a class='btn btn-sm btn-danger' href='../controller/acaoLivro.php?acao=deletar&id_livro=".$id."'>Deletar</a>";
+                echo "</tr>";
+                $num++;
+            }
+            echo"</tbody></table></body>";
+        }
+        else{
+            echo($msg);
+        }
+      } 
 }
 ?>

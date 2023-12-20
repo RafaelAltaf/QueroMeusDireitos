@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if (empty($_SESSION['id_usuario'])) {
+    header("location:../view/viewTelaDeMensagem.php?mensagem=A sessão expirou");
+}
+?>
+
 <!DOCTYPE HTML>
 <html lang="pt-br">   
 <head>   
@@ -10,24 +17,27 @@ integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0J
 crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
 integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"  crossorigin="anonymous">
-<title>Aula PHP - Revisão</title>
+<title>Biblioteca - Lista Livros</title>
 </head>
 <body>
-    <table class="table table-striped">
-    <thead>
-        <tr>
-        <th scope="col">Número</th>
-        <th scope="col">Título</th>
-        <th scope="col">Autor</th>
-        <th scope="col">Data de Publicação</th>
-        </tr>
-    </thead>
-    <tbody class = "table-group-divider">
-        <?php
-            include_once("../model/livros.php");
-            $l = new Livros();
-            $l->ListarLivros();
-        ?>
-    </tbody>
-    </table>
-</body>
+<header class="d-flex justify-content-center py-3 border-bottom border-dark">
+    <ul class="nav nav-pills">
+    <li class="nav-item"><a href="../view/viewListaLivros.php" class="nav-link" aria-current="page">Livros</a></li>
+    <li class="nav-item"><a href="../view/viewCadastroLivros.php" class="nav-link">Cadastrar Livros</a></li>
+    <li class="nav-item"><a href="../view/viewListaLivros.php?lista=querLer" class="nav-link">Quero Ler</a></li>
+    <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lendo" class="nav-link">Estou Lendo</a></li>
+    <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lidos" class="nav-link">Já Lí</a></li>
+    <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lidos" class="nav-link">Sair</a></li>
+    </ul>
+</header>
+
+<?php
+    include_once("../model/livros.php");
+    $l = new Livros();
+    if(empty($_GET['lista'])){
+        $l->ListarLivros();
+    }
+    else{
+        $l->ListarLivros($_GET['lista'],$_SESSION['id_usuario']);
+    }
+?>

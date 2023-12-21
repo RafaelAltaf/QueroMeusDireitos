@@ -1,0 +1,28 @@
+use Biblioteca;
+
+INSERT INTO livros (titulo, autor, data_publicacao) VALUES
+('O Senhor dos Anéis', 'J.R.R. Tolkien', '1954-07-29'),
+('1984', 'George Orwell', '1949-06-08'),
+('Dom Quixote', 'Miguel de Cervantes', '1605-01-16'),
+('Cem Anos de Solidão', 'Gabriel García Márquez', '1967-05-30'),
+('A Revolução dos Bichos', 'George Orwell', '1945-08-17'),
+('A Arte da Guerra', 'Sun Tzu', 'Século V a.C.'),
+('Crime e Castigo', 'Fiódor Dostoiévski', '1866-11-14'),
+('A Metamorfose', 'Franz Kafka', '1915-10-15'),
+('Harry Potter e a Pedra Filosofal', 'J.K. Rowling', '1997-06-26'),
+('O Pequeno Príncipe', 'Antoine de Saint-Exupéry', '1943-04-06'),
+('Moby Dick', 'Herman Melville', '1851-10-18'),
+('Orgulho e Preconceito', 'Jane Austen', '1813-01-28'),
+('A Odisséia', 'Homero', 'Século VIII a.C.'),
+('Ulisses', 'James Joyce', '1922-02-02'),
+('O Grande Gatsby', 'F. Scott Fitzgerald', '1925-04-10'),
+('A Sangue Frio', 'Truman Capote', '1965-01-17'),
+('Os Miseráveis', 'Victor Hugo', '1862-03-15'),
+('O Hobbit', 'J.R.R. Tolkien', '1937-09-21'),
+('Drácula', 'Bram Stoker', '1897-05-26'),
+('O Príncipe', 'Maquiavel', '1532-12-10'),
+('Guerra e Paz', 'Lev Tolstói', '1869-01-01'),
+('A Ilíada', 'Homero', 'Século VIII a.C.'),
+('Romeu e Julieta', 'William Shakespeare', '1597-01-22'),
+('A República', 'Platão', 'Século IV a.C.'),
+('O Processo', 'Franz Kafka', '1925-04-26');

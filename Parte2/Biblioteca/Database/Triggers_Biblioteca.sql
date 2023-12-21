@@ -48,3 +48,51 @@ begin
 	insert into log(descricao, data_hora) values(concat("O livro de ID ", old.id_livro, " foi deletado. Seus dados eram os seguintes: Título = ", old.titulo, " Autor = ", old.autor, " Data de Publicação = ", old.data_publicacao), CURRENT_TIMESTAMP);
 end $$ 
 DELIMITER ;
+
+DELIMITER $$
+create trigger insert_querLer after insert on querLer
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", new.id_livro, " foi adicionado à lista de livros que o usuário ",new.id_usuario,"quer ler"), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_querLer before delete on querLer
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", old.id_livro, " foi retirado da lista de livros que o usuário ",old.id_usuario,"quer ler"), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;
+
+DELIMITER $$
+create trigger insert_lidos after insert on lidos
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", new.id_livro, " foi adicionado à lista de livros que o usuário ",new.id_usuario,"já leu."), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_lidos before delete on lidos
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", old.id_livro, " foi retirado da lista de livros que o usuário ",old.id_usuario,"já leu."), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;
+
+DELIMITER $$
+create trigger insert_lendo after insert on lendo
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", new.id_livro, " foi adicionado à lista de livros que o usuário ",new.id_usuario,"está lendo."), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_lendo before delete on lendo
+for each row
+begin
+	insert into log(descricao, data_hora) values(concat("O livro de ID ", old.id_livro, " foi retirado da lista de livros que o usuário ",old.id_usuario,"está lendo."), CURRENT_TIMESTAMP);
+end $$ 
+DELIMITER ;

@@ -3,13 +3,13 @@
     $u = new Usuarios();
     $u->SetEmail($_POST['email']);
     $u->SetSenha($_POST['senha']);
-    
-    if($u->Logar()){
+    $result = $u->Logar();
+    if(!$result){
         session_start();
         header("location:../view/viewListaLivros.php");
     }
     else{
-       header("location:../view/viewTelaDeMensagem.php?mensagem=Email e/ou senha inválido(s)");
+       header("location:../view/viewTelaDeMensagem.php?mensagem=$result");
 
     }
 ?>

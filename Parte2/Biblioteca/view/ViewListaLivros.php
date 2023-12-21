@@ -1,8 +1,9 @@
 <?php 
-session_start();
-if (empty($_SESSION['id_usuario'])) {
-    header("location:../view/viewTelaDeMensagem.php?mensagem=A sessão expirou");
-}
+    include_once("../model/livros.php");
+    session_start();
+    if (empty($_SESSION['id_usuario'])) {
+        header("location:../view/viewLoginUsuario");
+    }
 ?>
 
 <!DOCTYPE HTML>
@@ -22,17 +23,16 @@ integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6
 <body>
 <header class="d-flex justify-content-center py-3 border-bottom border-dark">
     <ul class="nav nav-pills">
-    <li class="nav-item"><a href="../view/viewListaLivros.php" class="nav-link" aria-current="page">Livros</a></li>
     <li class="nav-item"><a href="../view/viewCadastroLivros.php" class="nav-link">Cadastrar Livros</a></li>
+    <li class="nav-item"><a href="../view/viewListaLivros.php" class="nav-link">Livros</a></li>
     <li class="nav-item"><a href="../view/viewListaLivros.php?lista=querLer" class="nav-link">Quero Ler</a></li>
     <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lendo" class="nav-link">Estou Lendo</a></li>
     <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lidos" class="nav-link">Já Lí</a></li>
-    <li class="nav-item"><a href="../view/viewListaLivros.php?lista=lidos" class="nav-link">Sair</a></li>
+    <li class="nav-item"><a href="../controller/logoff.php" class="nav-link">Sair</a></li>
     </ul>
 </header>
 
 <?php
-    include_once("../model/livros.php");
     $l = new Livros();
     if(empty($_GET['lista'])){
         $l->ListarLivros();

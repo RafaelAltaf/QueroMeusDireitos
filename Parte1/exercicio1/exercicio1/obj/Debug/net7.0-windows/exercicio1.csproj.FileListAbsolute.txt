@@ -1,0 +1,17 @@
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\bin\Debug\net7.0-windows\exercicio1.exe
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\bin\Debug\net7.0-windows\exercicio1.deps.json
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\bin\Debug\net7.0-windows\exercicio1.runtimeconfig.json
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\bin\Debug\net7.0-windows\exercicio1.dll
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\bin\Debug\net7.0-windows\exercicio1.pdb
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.csproj.AssemblyReference.cache
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.CaixaEletronico.resources
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.csproj.GenerateResource.cache
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.GeneratedMSBuildEditorConfig.editorconfig
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.AssemblyInfoInputs.cache
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.AssemblyInfo.cs
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.csproj.CoreCompileInputs.cache
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.dll
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\refint\exercicio1.dll
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.pdb
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\exercicio1.genruntimeconfig.cache
+C:\wamp64\www\QueroMeusDireitos\Parte1\exercicio1\exercicio1\obj\Debug\net7.0-windows\ref\exercicio1.dll
